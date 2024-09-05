@@ -52,7 +52,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyA9W2aU_y3doSMvchKKvG0Z6yuCGf8mm5k',
-    appId: '1:823455017594:android:65168bce980c25e78629c3',
+    appId: '1:823455017594:android:2e7c3a7ab961d2838629c3',
     messagingSenderId: '823455017594',
     projectId: 'slportal-20697',
     storageBucket: 'slportal-20697.appspot.com',
@@ -85,4 +85,5 @@ class DefaultFirebaseOptions {
     storageBucket: 'slportal-20697.appspot.com',
     measurementId: 'G-DFTG27KPF1',
   );
+
 }

@@ -1,9 +1,16 @@
-// main.dart
 import 'package:flutter/material.dart';
+<<<<<<< Updated upstream
 import 'package:sl_portal/home_page.dart';
+=======
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:sl_portal/application_list_page.dart';
+>>>>>>> Stashed changes
 import 'app_form.dart'; // Import the AppForm screen
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const SignupScreen());
 }
 
@@ -38,9 +45,10 @@ class SignupScreen extends StatelessWidget {
   }
 }
 
-class LoginCard extends StatelessWidget {
+class LoginCard extends StatefulWidget {
   const LoginCard({super.key});
 
+<<<<<<< Updated upstream
   // Function to navigate to the AppForm screen
   void _navigateToAppForm(BuildContext context) {
     Navigator.push(
@@ -48,6 +56,39 @@ class LoginCard extends StatelessWidget {
       // MaterialPageRoute(builder: (context) => const AppForm()),
       MaterialPageRoute(builder: (context) => const HomePage()),
     );
+=======
+  @override
+  _LoginCardState createState() => _LoginCardState();
+}
+
+class _LoginCardState extends State<LoginCard> {
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  // Function to handle login
+  Future<void> _login() async {
+    try {
+
+      if (_emailController.text== 'admin'){
+        Navigator.push(
+  context,
+  MaterialPageRoute(builder: (context) => const ApplicationsListPage()),
+);
+      }
+      UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: _emailController.text,
+        password: _passwordController.text,
+      );
+      // Navigate to AppForm on successful login
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const AppForm()),
+      );
+    } catch (e) {
+      // Handle error (e.g., display error message)
+      print('Error: $e');
+    }
+>>>>>>> Stashed changes
   }
 
   @override
@@ -60,19 +101,19 @@ class LoginCard extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              const TextField(
-                decoration: InputDecoration(labelText: 'Email'),
+              TextField(
+                controller: _emailController,
+                decoration: const InputDecoration(labelText: 'Email'),
               ),
               const SizedBox(height: 10),
-              const TextField(
-                decoration: InputDecoration(labelText: 'Password'),
+              TextField(
+                controller: _passwordController,
+                decoration: const InputDecoration(labelText: 'Password'),
                 obscureText: true,
               ),
               const SizedBox(height: 20),
               ElevatedButton(
-                onPressed: () {
-                  _navigateToAppForm(context); // Navigate to AppForm when clicked
-                },
+                onPressed: _login,
                 child: const Text('Login'),
               ),
             ],
@@ -83,8 +124,44 @@ class LoginCard extends StatelessWidget {
   }
 }
 
-class SignupCard extends StatelessWidget {
+class SignupCard extends StatefulWidget {
   const SignupCard({super.key});
+
+  @override
+  _SignupCardState createState() => _SignupCardState();
+}
+
+class _SignupCardState extends State<SignupCard> {
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  bool _isLoading = false; // Loading state
+
+  // Function to handle signup
+  Future<void> _signup() async {
+    setState(() {
+      _isLoading = true; // Show loading indicator
+    });
+    
+    try {
+      UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: _emailController.text,
+        password: _passwordController.text,
+      );
+      // After successful signup, navigate to the AppForm screen
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => const AppForm()),
+        (Route<dynamic> route) => false, // Prevent navigating back to the signup screen
+      );
+    } catch (e) {
+      print('Error: $e');
+    } finally {
+      setState(() {
+        _isLoading = false; // Hide loading indicator
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -96,25 +173,28 @@ class SignupCard extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              const TextField(
-                decoration: InputDecoration(labelText: 'Full Name'),
+              TextField(
+                controller: _nameController,
+                decoration: const InputDecoration(labelText: 'Full Name'),
               ),
               const SizedBox(height: 10),
-              const TextField(
-                decoration: InputDecoration(labelText: 'Email'),
+              TextField(
+                controller: _emailController,
+                decoration: const InputDecoration(labelText: 'Email'),
               ),
               const SizedBox(height: 10),
-              const TextField(
-                decoration: InputDecoration(labelText: 'Password'),
+              TextField(
+                controller: _passwordController,
+                decoration: const InputDecoration(labelText: 'Password'),
                 obscureText: true,
               ),
               const SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: () {
-                  // Handle signup logic here
-                },
-                child: const Text('Signup'),
-              ),
+              _isLoading
+                  ? const CircularProgressIndicator() // Show loading indicator
+                  : ElevatedButton(
+                      onPressed: _signup,
+                      child: const Text('Signup'),
+                    ),
             ],
           ),
         ),

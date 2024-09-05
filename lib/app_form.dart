@@ -1,16 +1,15 @@
-// app_form.dart
 import 'package:flutter/material.dart';
-import 'upload_page.dart'; // Import the upload page
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'upload_page.dart'; // Import the UploadPage
 
 class AppForm extends StatefulWidget {
-  const AppForm({super.key});
+  const AppForm({Key? key}) : super(key: key);
 
   @override
   _AppFormState createState() => _AppFormState();
 }
 
 class _AppFormState extends State<AppForm> {
-  // Define controllers to manage input fields
   final TextEditingController _fullNameController = TextEditingController();
   final TextEditingController _passportNumberController = TextEditingController();
   final TextEditingController _nationalityController = TextEditingController();
@@ -20,7 +19,14 @@ class _AppFormState extends State<AppForm> {
   final TextEditingController _contactNumberController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
 
-  // Date pickers for date fields
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  String? _birthCertificateUrl;
+  String? _passportPhotoUrl;
+  String? _flightTicketUrl;
+  String? _bankStatementUrl;
+
+  // Method to select date
   Future<void> _selectDate(BuildContext context, TextEditingController controller) async {
     DateTime? picked = await showDatePicker(
       context: context,
@@ -35,17 +41,66 @@ class _AppFormState extends State<AppForm> {
     }
   }
 
-  // Form key to validate form fields
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
-  // Function to navigate to the upload page with relevant file type
-  void _navigateToUploadPage(BuildContext context, String title) {
-    Navigator.push(
+  // Method to navigate to upload page and get the file URL
+  Future<void> _navigateToUploadPage(String title, Function(String) onUpload) async {
+    final result = await Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) => UploadPage(title: title),
       ),
     );
+    if (result != null) {
+      setState(() {
+        onUpload(result);
+      });
+    }
+  }
+
+  // Method to submit form data to Firestore
+  Future<void> _submitForm() async {
+    if (_formKey.currentState!.validate()) {
+      try {
+        await FirebaseFirestore.instance.collection('visa_applications').add({
+          'full_name': _fullNameController.text,
+          'passport_number': _passportNumberController.text,
+          'nationality': _nationalityController.text,
+          'date_of_birth': _dateOfBirthController.text,
+          'travel_date': _travelDateController.text,
+          'return_date': _returnDateController.text,
+          'contact_number': _contactNumberController.text,
+          'email': _emailController.text,
+          'birth_certificate_url': _birthCertificateUrl,
+          'passport_photo_url': _passportPhotoUrl,
+          'flight_ticket_url': _flightTicketUrl,
+          'bank_statement_url': _bankStatementUrl,
+          'timestamp': FieldValue.serverTimestamp(),
+        });
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Application Submitted Successfully')),
+        );
+        _clearForm(); // Clear form fields after submission
+      } catch (e) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Failed to submit application: $e')),
+        );
+      }
+    }
+  }
+
+  // Method to clear form fields
+  void _clearForm() {
+    _fullNameController.clear();
+    _passportNumberController.clear();
+    _nationalityController.clear();
+    _dateOfBirthController.clear();
+    _travelDateController.clear();
+    _returnDateController.clear();
+    _contactNumberController.clear();
+    _emailController.clear();
+    _birthCertificateUrl = null;
+    _passportPhotoUrl = null;
+    _flightTicketUrl = null;
+    _bankStatementUrl = null;
   }
 
   @override
@@ -190,39 +245,28 @@ class _AppFormState extends State<AppForm> {
                 },
               ),
               const SizedBox(height: 20),
-              const Divider(height: 20),
               const Text(
-                'Upload Required Documents',
+                'Upload Documents',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 10),
               GridView.count(
-                shrinkWrap: true,
                 crossAxisCount: 2,
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
                 crossAxisSpacing: 10,
                 mainAxisSpacing: 10,
-                childAspectRatio: 3 / 2,
-                physics: const NeverScrollableScrollPhysics(),
                 children: [
-                  _buildGridItem(context, 'Birth Certificate'),
-                  _buildGridItem(context, 'Passport Photo'),
-                  _buildGridItem(context, 'Flight Ticket PDF'),
-                  _buildGridItem(context, 'Bank Account Statement'),
+                  _buildUploadCard('Birth Certificate', (url) => _birthCertificateUrl = url),
+                  _buildUploadCard('Passport Photo', (url) => _passportPhotoUrl = url),
+                  _buildUploadCard('Flight Ticket', (url) => _flightTicketUrl = url),
+                  _buildUploadCard('Bank Statement', (url) => _bankStatementUrl = url),
                 ],
               ),
               const SizedBox(height: 20),
-              Center(
-                child: ElevatedButton(
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      // Handle form submission logic
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Processing Application')),
-                      );
-                    }
-                  },
-                  child: const Text('Submit Application'),
-                ),
+              ElevatedButton(
+                onPressed: _submitForm,
+                child: const Text('Submit Application'),
               ),
             ],
           ),
@@ -231,28 +275,21 @@ class _AppFormState extends State<AppForm> {
     );
   }
 
-  // Method to build grid item
-  Widget _buildGridItem(BuildContext context, String title) {
+  // Method to build upload cards
+  Widget _buildUploadCard(String title, Function(String) onUpload) {
     return GestureDetector(
-      onTap: () => _navigateToUploadPage(context, title),
+      onTap: () => _navigateToUploadPage(title, onUpload),
       child: Card(
-        elevation: 2,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(
-              Icons.file_upload,
-              size: 40,
-              color: Colors.blue,
-            ),
-            const SizedBox(height: 10),
-            Text(
-              title,
-              textAlign: TextAlign.center,
-              style: const TextStyle(fontSize: 14),
-            ),
-          ],
+        color: Colors.grey[200],
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(Icons.upload_file, size: 40, color: Colors.grey[700]),
+              const SizedBox(height: 10),
+              Text(title, textAlign: TextAlign.center),
+            ],
+          ),
         ),
       ),
     );
