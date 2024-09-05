@@ -1,10 +1,9 @@
-// app_form.dart
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart'; // Import Firestore
-import 'upload_page.dart'; // Import the upload page
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'upload_page.dart'; // Import the UploadPage
 
 class AppForm extends StatefulWidget {
-  const AppForm({super.key});
+  const AppForm({Key? key}) : super(key: key);
 
   @override
   _AppFormState createState() => _AppFormState();
@@ -22,6 +21,11 @@ class _AppFormState extends State<AppForm> {
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
+  String? _birthCertificateUrl;
+  String? _passportPhotoUrl;
+  String? _flightTicketUrl;
+  String? _bankStatementUrl;
+
   // Method to select date
   Future<void> _selectDate(BuildContext context, TextEditingController controller) async {
     DateTime? picked = await showDatePicker(
@@ -37,14 +41,19 @@ class _AppFormState extends State<AppForm> {
     }
   }
 
-  // Method to navigate to upload page
-  void _navigateToUploadPage(BuildContext context, String title) {
-    Navigator.push(
+  // Method to navigate to upload page and get the file URL
+  Future<void> _navigateToUploadPage(String title, Function(String) onUpload) async {
+    final result = await Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) => UploadPage(title: title),
       ),
     );
+    if (result != null) {
+      setState(() {
+        onUpload(result);
+      });
+    }
   }
 
   // Method to submit form data to Firestore
@@ -60,6 +69,10 @@ class _AppFormState extends State<AppForm> {
           'return_date': _returnDateController.text,
           'contact_number': _contactNumberController.text,
           'email': _emailController.text,
+          'birth_certificate_url': _birthCertificateUrl,
+          'passport_photo_url': _passportPhotoUrl,
+          'flight_ticket_url': _flightTicketUrl,
+          'bank_statement_url': _bankStatementUrl,
           'timestamp': FieldValue.serverTimestamp(),
         });
         ScaffoldMessenger.of(context).showSnackBar(
@@ -84,6 +97,10 @@ class _AppFormState extends State<AppForm> {
     _returnDateController.clear();
     _contactNumberController.clear();
     _emailController.clear();
+    _birthCertificateUrl = null;
+    _passportPhotoUrl = null;
+    _flightTicketUrl = null;
+    _bankStatementUrl = null;
   }
 
   @override
@@ -240,10 +257,10 @@ class _AppFormState extends State<AppForm> {
                 crossAxisSpacing: 10,
                 mainAxisSpacing: 10,
                 children: [
-                  _buildUploadCard('Birth Certificate', context),
-                  _buildUploadCard('Passport Photo', context),
-                  _buildUploadCard('Flight Ticket', context),
-                  _buildUploadCard('Bank Statement', context),
+                  _buildUploadCard('Birth Certificate', (url) => _birthCertificateUrl = url),
+                  _buildUploadCard('Passport Photo', (url) => _passportPhotoUrl = url),
+                  _buildUploadCard('Flight Ticket', (url) => _flightTicketUrl = url),
+                  _buildUploadCard('Bank Statement', (url) => _bankStatementUrl = url),
                 ],
               ),
               const SizedBox(height: 20),
@@ -259,26 +276,19 @@ class _AppFormState extends State<AppForm> {
   }
 
   // Method to build upload cards
-  Widget _buildUploadCard(String title, BuildContext context) {
+  Widget _buildUploadCard(String title, Function(String) onUpload) {
     return GestureDetector(
-      onTap: () => _navigateToUploadPage(context, title),
+      onTap: () => _navigateToUploadPage(title, onUpload),
       child: Card(
-        elevation: 2,
+        color: Colors.grey[200],
         child: Center(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(Icons.upload_file, size: 40, color: Colors.blue),
-                const SizedBox(height: 10),
-                Text(
-                  title,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(fontWeight: FontWeight.bold),
-                ),
-              ],
-            ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(Icons.upload_file, size: 40, color: Colors.grey[700]),
+              const SizedBox(height: 10),
+              Text(title, textAlign: TextAlign.center),
+            ],
           ),
         ),
       ),
