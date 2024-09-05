@@ -31,6 +31,7 @@ class SignupScreen extends StatelessWidget {
               SignupCard(),
             ],
           ),
+
         ),
       ),
     );
@@ -69,7 +70,8 @@ class LoginCard extends StatelessWidget {
               const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () {
-                  _navigateToAppForm(context); // Navigate to AppForm when clicked
+                  _navigateToAppForm(
+                      context); // Navigate to AppForm when clicked
                 },
                 child: const Text('Login'),
               ),
