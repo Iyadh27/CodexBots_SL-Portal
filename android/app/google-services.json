@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "823455017594",
+    "project_id": "slportal-20697",
+    "storage_bucket": "slportal-20697.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:823455017594:android:65168bce980c25e78629c3",
+        "android_client_info": {
+          "package_name": "com.slportal.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA9W2aU_y3doSMvchKKvG0Z6yuCGf8mm5k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
