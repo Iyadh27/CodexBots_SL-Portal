@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'pages/discover.dart';
+import 'pages/profile.dart';
+import 'pages/saved.dart';
+import 'pages/socials.dart';
 
 void main() {
   runApp(const MyApp());
@@ -45,17 +49,17 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget _getPage(int index) {
     switch (index) {
       case 0:
-        return const HomePage();
+        return const MyHomePage(title: 'Home');
       case 1:
-        return const SocialPage();
+        return const SocialsPage();
       case 2:
         return const MapPage();
       case 3:
-        return const PlacesPage();
+        return const SavedPlacesPage();
       case 4:
         return const ProfilePage();
       default:
-        return const HomePage();
+        return const MyHomePage(title: 'Home');
     }
   }
 
@@ -104,42 +108,50 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(body: Center(child: Text('Home Page')));
-  }
-}
+// class HomePage extends StatelessWidget {
+//   const HomePage({super.key});
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(body: Center(child: Text('Home Page')));
+//   }
+// }
 
-class SocialPage extends StatelessWidget {
-  const SocialPage({super.key});
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(body: Center(child: Text('Social Page')));
-  }
-}
+// class SocialPage extends StatelessWidget {
+//   const SocialPage({super.key});
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//         appBar: AppBar(title: const Text('Socials')),
+//         body: Center(child: Text('Social Page')));
+//   }
+// }
 
-class MapPage extends StatelessWidget {
-  const MapPage({super.key});
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(body: Center(child: Text('Map Page')));
-  }
-}
+// // class MapPage extends StatelessWidget {
+// //   const MapPage({super.key});
+// //   @override
+// //   Widget build(BuildContext context) {
+// //     return Scaffold(
+// //         appBar: AppBar(title: const Text('Discover')),
+// //         body: Center(child: Text('Map Page')));
+// //   }
+// // }
 
-class PlacesPage extends StatelessWidget {
-  const PlacesPage({super.key});
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(body: Center(child: Text('Places Page')));
-  }
-}
+// class PlacesPage extends StatelessWidget {
+//   const PlacesPage({super.key});
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//         appBar: AppBar(title: const Text('Saved places')),
+//         body: Center(child: Text('Saved')));
+//   }
+// }
 
-class ProfilePage extends StatelessWidget {
-  const ProfilePage({super.key});
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(body: Center(child: Text('Profile Page')));
-  }
-}
+// class ProfilePage extends StatelessWidget {
+//   const ProfilePage({super.key});
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//         appBar: AppBar(title: const Text('User Profile')),
+//         body: Center(child: Text('Profile Page')));
+//   }
+// }
