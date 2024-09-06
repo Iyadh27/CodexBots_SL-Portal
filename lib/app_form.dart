@@ -112,12 +112,12 @@ final UserController _userController = Get.find<UserController>();
       // Document does not exist, create a new one
       await _firestore.collection('applications').add(formData);
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Application submitted successfully!')),
+        const SnackBar(content: Text('Application saved successfully!')),
       );
     }
   } catch (e) {
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('Failed to submit application: $e')),
+      SnackBar(content: Text('Failed to save application: $e')),
     );
   }
 }
@@ -296,7 +296,7 @@ final UserController _userController = Get.find<UserController>();
                   _saveToFirestore();
                 }
               },
-              child: const Text('Submit'),
+              child: const Text('save'),
             ),
           ],
         ),

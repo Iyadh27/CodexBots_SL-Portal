@@ -117,7 +117,7 @@ Future<void> _saveToFirestore() async {
       // Document does not exist, create a new one
       await _firestore.collection('travelForms').add(formData);
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Travel form submitted successfully!')),
+        const SnackBar(content: Text('Travel form save successfully!')),
       );
     }
   } catch (e) {
@@ -220,7 +220,7 @@ Future<void> _saveToFirestore() async {
                   _saveToFirestore();
                 }
               },
-              child: const Text('Submit'),
+              child: const Text('Save'),
             ),
           ],
         ),
