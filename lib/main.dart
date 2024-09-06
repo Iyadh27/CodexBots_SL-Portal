@@ -29,6 +29,7 @@ class MyApp extends StatelessWidget {
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
+
   final String title;
 
   @override
@@ -43,6 +44,10 @@ class _MyHomePageState extends State<MyHomePage> {
       _selectedIndex = index;
     });
     // You can navigate to different pages based on index here
+
+  }
+
+  void _navigateToSignup() {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => _getPage(index)),
@@ -416,6 +421,7 @@ class _MyHomePageState extends State<MyHomePage> {
             PopupMenuItem<int>(value: 3, child: Icon(Icons.file_copy)),
             PopupMenuItem<int>(value: 4, child: Icon(Icons.man)),
             PopupMenuItem<int>(value: 5, child: Icon(Icons.chat)),
+
           ],
         ),
       ),

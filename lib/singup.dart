@@ -1,6 +1,8 @@
 // main.dart
 import 'package:flutter/material.dart';
-import 'app_form.dart'; // Import the AppForm screen
+import 'package:sl_portal/visa.dart';
+
+// Import the AppForm screen
 
 // void main() {
 //   runApp(const SignupScreen());
@@ -44,7 +46,7 @@ class LoginCard extends StatelessWidget {
   void _navigateToAppForm(BuildContext context) {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => const AppForm()),
+      MaterialPageRoute(builder: (context) => const TabBarApp()),
     );
   }
 
