@@ -4,6 +4,8 @@ import 'pages/profile.dart';
 import 'pages/saved.dart';
 import 'pages/socials.dart';
 
+import 'package:carousel_slider/carousel_slider.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -63,17 +65,99 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
+  final List<String> featuredCars = ['Car 1', 'Car 2', 'Car 3'];
+  final List<String> newArrivals = ['Car 4', 'Car 5', 'Car 6'];
+  final List<String> bestSellers = ['Car 7', 'Car 8', 'Car 9'];
+  void funsearchController() {
+    print("pressed");
+    return;
+  }
+
+  final TextEditingController _searchController = TextEditingController();
+  Widget buildCarouselSection(String title, List<String> items) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+            padding: const EdgeInsets.only(top: 16.0, bottom: 16.0),
+            child: Container(
+              width: MediaQuery.of(context).size.width / 2,
+              padding: EdgeInsets.only(top: 8.0, bottom: 8.0, left: 28.0),
+              decoration: BoxDecoration(
+                color: Theme.of(context)
+                    .primaryColor, // Primary color as background
+                borderRadius: BorderRadius.only(
+                  topRight: Radius.circular(20.0), // Rounded top-right corner
+                  bottomRight:
+                      Radius.circular(20.0), // Rounded bottom-right corner
+                ),
+              ),
+              child: Text(
+                title,
+
+                style: TextStyle(
+                  color: Colors.white, // Text color for contrast
+                  fontSize: 18,
+                ),
+                textAlign: TextAlign.left, // Left aligned text
+              ),
+            )),
+        CarouselSlider(
+          options: CarouselOptions(
+              height: 200.0,
+              viewportFraction: 0.5,
+              enableInfiniteScroll: false,
+              enlargeCenterPage: false,
+              padEnds: false),
+          items: items.map((i) {
+            return Builder(
+              builder: (BuildContext context) {
+                return Container(
+                    width: MediaQuery.of(context).size.width / 2.5,
+                    margin: EdgeInsets.symmetric(horizontal: 5.0),
+                    decoration: BoxDecoration(
+                        color: Colors.amber,
+                        borderRadius: BorderRadius.circular(10)),
+                    child: Text(
+                      ' $i',
+                      style: TextStyle(fontSize: 16.0),
+                    ));
+              },
+            );
+          }).toList(),
+        )
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-      //   title: Text(widget.title),
-      // ),
-      body: Center(
-        child: Text(
-          'You have pushed the button this many times:',
-        ),
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextField(
+              controller: _searchController,
+              decoration: InputDecoration(
+                hintText: 'Search...',
+                prefixIcon: Icon(Icons.search),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+            ),
+          ),
+          Expanded(
+            child: ListView(
+              children: [
+                buildCarouselSection('Popular Destinations', featuredCars),
+                buildCarouselSection('To Do Activites', newArrivals),
+                buildCarouselSection('Saved Places', bestSellers),
+              ],
+            ),
+          ),
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {},
