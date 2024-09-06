@@ -11,16 +11,6 @@ class TabBarApp extends StatefulWidget {
 }
 
 class _TabBarState extends State<TabBarApp> {
-  bool isMultiPartFormComplete = false; // Track if the form is complete
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
-  // Callback function when MultiPartForm is complete
-  void _onMultiPartFormComplete(bool isComplete) {
-    setState(() {
-      isMultiPartFormComplete = isComplete;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -43,36 +33,20 @@ class _TabBarState extends State<TabBarApp> {
             ],
           ),
         ),
-        body: TabBarView(
+        body: const TabBarView(
           children: <Widget>[
             Column(
               children: [
                 Expanded(
-                  child: SingleChildScrollView(
-                    child: MultiPartForm(onComplete: _onMultiPartFormComplete),
-                  ),
+                  child: MultiPartForm(),
                 ),
-                ElevatedButton(
-                  onPressed: isMultiPartFormComplete
-                      ? () {
-                          if (_formKey.currentState!.validate()) {
-                            // If the form is valid, process the data
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text('Processing Travel Information'),
-                              ),
-                            );
-                          }
-                        }
-                      : null, // Disable button if form is not complete
-                  child: const Text('Submit'),
-                ),
+                
               ],
             ),
-            const Center(
+            Center(
               child: Text("It's rainy here"),
             ),
-            const Center(
+            Center(
               child: Text("It's sunny here"),
             ),
           ],
