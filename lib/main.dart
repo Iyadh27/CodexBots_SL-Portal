@@ -145,7 +145,14 @@ class _MyHomePageState extends State<MyHomePage> {
                       context,
                       MaterialPageRoute(builder: (context) => TabBarApp()),
                     );
-                  } else {
+                  }if (i[0] == 'SLP bot') {
+                    // Define what should happen when "Your native companion" is tapped
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => ChatBotScreen()),
+                    );}
+                  
+                   else {
                     print("${i[0]} tapped");
                   }
                 },
