@@ -1,1 +1,25 @@
-{"flutter":{"platforms":{"android":{"default":{"projectId":"slportal-20697","appId":"1:823455017594:android:65168bce980c25e78629c3","fileOutput":"android/app/google-services.json"}},"dart":{"lib/firebase_options.dart":{"projectId":"slportal-20697","configurations":{"android":"1:823455017594:android:65168bce980c25e78629c3","ios":"1:823455017594:ios:4ce010b6d934c2d78629c3","macos":"1:823455017594:ios:4ce010b6d934c2d78629c3","web":"1:823455017594:web:294034f3e7a0e5968629c3","windows":"1:823455017594:web:edd897338db276808629c3"}}}}}}
+{
+    "flutter": {
+        "platforms": {
+            "android": {
+                "default": {
+                    "projectId": "slportal-20697",
+                    "appId": "1:823455017594:android:65168bce980c25e78629c3",
+                    "fileOutput": "android/app/google-services.json"
+                }
+            },
+            "dart": {
+                "lib/firebase_options.dart": {
+                    "projectId": "slportal-20697",
+                    "configurations": {
+                        "android": "1:823455017594:android:65168bce980c25e78629c3",
+                        "ios": "1:823455017594:ios:4ce010b6d934c2d78629c3",
+                        "macos": "1:823455017594:ios:4ce010b6d934c2d78629c3",
+                        "web": "1:823455017594:web:294034f3e7a0e5968629c3",
+                        "windows": "1:823455017594:web:edd897338db276808629c3"
+                    }
+                }
+            }
+        }
+    }
+}

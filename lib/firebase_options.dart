@@ -40,7 +40,7 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions web = FirebaseOptions(
+  static FirebaseOptions web = FirebaseOptions(
     apiKey: 'AIzaSyBnjvSH5Ugog2mfCrFuZxxfBAqZ4E48xKI',
     appId: '1:823455017594:web:294034f3e7a0e5968629c3',
     messagingSenderId: '823455017594',
@@ -50,7 +50,7 @@ class DefaultFirebaseOptions {
     measurementId: 'G-K53FVGY0K1',
   );
 
-  static const FirebaseOptions android = FirebaseOptions(
+  static FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyA9W2aU_y3doSMvchKKvG0Z6yuCGf8mm5k',
     appId: '1:823455017594:android:65168bce980c25e78629c3',
     messagingSenderId: '823455017594',
@@ -58,25 +58,25 @@ class DefaultFirebaseOptions {
     storageBucket: 'slportal-20697.appspot.com',
   );
 
-  static const FirebaseOptions ios = FirebaseOptions(
+  static FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyDwSd4Kv8XqMFLbJGYt9l2Tz45rSd7VVfc',
     appId: '1:823455017594:ios:4ce010b6d934c2d78629c3',
     messagingSenderId: '823455017594',
     projectId: 'slportal-20697',
     storageBucket: 'slportal-20697.appspot.com',
-    iosBundleId: 'com.example.slPortal',
+    iosBundleId: 'com.slportal.app',
   );
 
-  static const FirebaseOptions macos = FirebaseOptions(
+  static FirebaseOptions macos = FirebaseOptions(
     apiKey: 'AIzaSyDwSd4Kv8XqMFLbJGYt9l2Tz45rSd7VVfc',
     appId: '1:823455017594:ios:4ce010b6d934c2d78629c3',
     messagingSenderId: '823455017594',
     projectId: 'slportal-20697',
     storageBucket: 'slportal-20697.appspot.com',
-    iosBundleId: 'com.example.slPortal',
+    iosBundleId: 'com.slportal.app',
   );
 
-  static const FirebaseOptions windows = FirebaseOptions(
+  static FirebaseOptions windows = FirebaseOptions(
     apiKey: 'AIzaSyBnjvSH5Ugog2mfCrFuZxxfBAqZ4E48xKI',
     appId: '1:823455017594:web:edd897338db276808629c3',
     messagingSenderId: '823455017594',

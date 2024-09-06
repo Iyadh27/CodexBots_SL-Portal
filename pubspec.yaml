@@ -31,11 +31,21 @@ dependencies:
   flutter:
     sdk: flutter
   file_picker: ^5.2.7
+  get: ^4.3.8
 
+  carousel_slider: ^5.0.0
+  flutter_map: ^7.0.2 
+  latlong2: any
+  http: any 
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
+  firebase_core: ^3.4.0
+  firebase_auth: ^5.2.0
+  cloud_firestore: ^5.4.0
+  firebase_storage: ^12.2.0
+  url_launcher: ^6.1.5
 
 dev_dependencies:
   flutter_test:
@@ -53,6 +63,22 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
+  assets:
+    - assets/chat.jpg
+    - assets/visa.jpg
+    - assets/dunhida.jpg
+    - assets/elephant.jpg
+    - assets/hikkaduwa.jpg
+    - assets/kandy.jpg
+    - assets/lotus.jpg
+    - assets/ninearch.jpg
+    - assets/hiking.jpg
+    - assets/mirissa.jpg
+    - assets/Arugam bay.jpg
+    - assets/Galle Fort.jpg
+    - assets/Horton Plains.jpg
+    - assets/Temple.jpg
+
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
@@ -63,6 +89,8 @@ flutter:
   # assets:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
+
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
