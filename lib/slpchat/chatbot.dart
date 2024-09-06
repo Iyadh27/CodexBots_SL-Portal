@@ -14,8 +14,8 @@ class _ChatBotScreenState extends State<ChatBotScreen> {
 
   // Fetch request to send the message to the backend
   Future<void> sendMessage(String message) async {
-    final url = Uri.parse(
-        'https://your-backend-api-url.com/chatbot'); // Replace with your backend URL
+    final url =
+        Uri.parse('http://127.0.0.1/chat'); // Replace with your backend URL
     try {
       final response = await http.post(
         url,
