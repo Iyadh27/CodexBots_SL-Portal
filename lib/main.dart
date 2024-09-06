@@ -11,16 +11,15 @@ import 'pages/saved.dart';
 import 'pages/socials.dart';
 import 'slpchat/chatbot.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-void main()  async {
 
-
-await Firebase.initializeApp(
+void main() async {
+  await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
-  );// Initialize Firebase 
+  ); // Initialize Firebase
 
-    Get.put(UserController()); // Initializes the UserController globally
+  Get.put(UserController()); // Initializes the UserController globally
 
-runApp(const SignupScreen());
+  runApp(const SignupScreen());
 }
 
 class MyApp extends StatelessWidget {
@@ -31,7 +30,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Color(0x007A8F)),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.teal),
         useMaterial3: true,
       ),
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
@@ -63,7 +62,7 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-    void _navigateToSignup() {
+  void _navigateToSignup() {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => const SignupScreen()),
@@ -137,90 +136,91 @@ class _MyHomePageState extends State<MyHomePage> {
           items: items.map((i) {
             return Builder(
               builder: (BuildContext context) {
-               return GestureDetector(
-                onTap: () {
-                  if (i[0] == 'Visa') {
-                    // Define what should happen when "Now visa processing at your fingertips" is tapped
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => TabBarApp()),
-                    );
-                  }if (i[0] == 'SLP bot') {
-                    // Define what should happen when "Your native companion" is tapped
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => ChatBotScreen()),
-                    );}
-                  
-                   else {
-                    print("${i[0]} tapped");
-                  }
-                },
-                child:Container(
-                  width: MediaQuery.of(context).size.width / 2.5,
-                  margin: EdgeInsets.all(8.0),
-                  child: Stack(
-                    fit: StackFit.expand,
-                    children: [
-                      // Background image
-                      Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          image: DecorationImage(
-                            image:
-                                AssetImage(i[2]), // Update with your image path
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ),
-                      // Gradient overlay
-                      Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          gradient: LinearGradient(
-                            colors: [
-                              Colors.black
-                                  .withOpacity(0.6), // Adjust opacity as needed
-                              Colors.black
-                                  .withOpacity(0.0), // Adjust opacity as needed
-                            ],
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomCenter,
-                          ),
-                        ),
-                      ),
-                      // Content with text
-                      Padding(
-                        padding: const EdgeInsets.all(
-                            16.0), // Add padding to make space for text
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              i[0],
-                              style: TextStyle(
-                                fontSize: 24.0,
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
+                return GestureDetector(
+                    onTap: () {
+                      if (i[0] == 'Visa') {
+                        // Define what should happen when "Now visa processing at your fingertips" is tapped
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => TabBarApp()),
+                        );
+                      }
+                      if (i[0] == 'SLP bot') {
+                        // Define what should happen when "Your native companion" is tapped
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ChatBotScreen()),
+                        );
+                      } else {
+                        print("${i[0]} tapped");
+                      }
+                    },
+                    child: Container(
+                      width: MediaQuery.of(context).size.width / 2.5,
+                      margin: EdgeInsets.all(8.0),
+                      child: Stack(
+                        fit: StackFit.expand,
+                        children: [
+                          // Background image
+                          Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              image: DecorationImage(
+                                image: AssetImage(
+                                    i[2]), // Update with your image path
+                                fit: BoxFit.cover,
                               ),
                             ),
-                            SizedBox(
-                                height:
-                                    8.0), // Add space between title and description
-                            Text(
-                              i[1],
-                              style: TextStyle(
-                                fontSize: 16.0,
-                                color: Colors.white,
+                          ),
+                          // Gradient overlay
+                          Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              gradient: LinearGradient(
+                                colors: [
+                                  Colors.black.withOpacity(
+                                      0.6), // Adjust opacity as needed
+                                  Colors.black.withOpacity(
+                                      0.0), // Adjust opacity as needed
+                                ],
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
                               ),
                             ),
-                          ],
-                        ),
+                          ),
+                          // Content with text
+                          Padding(
+                            padding: const EdgeInsets.all(
+                                16.0), // Add padding to make space for text
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  i[0],
+                                  style: TextStyle(
+                                    fontSize: 24.0,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                SizedBox(
+                                    height:
+                                        8.0), // Add space between title and description
+                                Text(
+                                  i[1],
+                                  style: TextStyle(
+                                    fontSize: 16.0,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
-                ));
+                    ));
               },
             );
           }).toList(),

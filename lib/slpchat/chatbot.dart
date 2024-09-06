@@ -15,7 +15,7 @@ class _ChatBotScreenState extends State<ChatBotScreen> {
   // Fetch request to send the message to the backend
   Future<void> sendMessage(String message) async {
     final url = Uri.parse(
-        'https://your-backend-api-url.com/chatbot'); // Replace with your backend URL
+        'http://127.0.0.1:8000/chat/'); // Replace with your backend URL
     try {
       final response = await http.post(
         url,
@@ -26,7 +26,7 @@ class _ChatBotScreenState extends State<ChatBotScreen> {
       if (response.statusCode == 200) {
         final botResponse = jsonDecode(response.body);
         setState(() {
-          messages.add({'sender': 'bot', 'text': botResponse['reply']});
+          messages.add({'sender': 'bot', 'text': botResponse['response']});
         });
       } else {
         setState(() {
