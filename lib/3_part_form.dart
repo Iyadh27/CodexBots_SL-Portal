@@ -5,7 +5,7 @@ import 'package:sl_portal/supporting_docs.dart';
 import 'package:sl_portal/travel_visa.dart';
 
 class MultiPartForm extends StatefulWidget {
-  final VoidCallback onComplete; 
+  final ValueChanged<bool> onComplete;
 
   const MultiPartForm({super.key, required this.onComplete});
 
@@ -19,14 +19,16 @@ class _MultiPartFormState extends State<MultiPartForm> {
   bool _personalComplete = false;
   bool _travelComplete = false;
   bool _financeComplete = false;
-  bool isMultiPartFormComplete = false; // Track if the MultiPartForm is complete
+  bool isMultiPartFormComplete =
+      false; // Track if the MultiPartForm is complete
 
   // Callback to mark the MultiPartForm as complete
   void _onMultiPartFormComplete() {
     setState(() {
       isMultiPartFormComplete = true;
     });
-    widget.onComplete();  // Notify parent that the form is complete
+    widget.onComplete(
+        isMultiPartFormComplete); // Notify parent that the form is complete
   }
 
   @override

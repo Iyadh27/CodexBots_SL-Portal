@@ -49,10 +49,7 @@ class _TabBarState extends State<TabBarApp> {
               children: [
                 Expanded(
                   child: SingleChildScrollView(
-                    child: MultiPartForm(
-                      onComplete: (bool isComplete) =>
-                          _onMultiPartFormComplete(isComplete),
-                    ),
+                    child: MultiPartForm(onComplete: _onMultiPartFormComplete),
                   ),
                 ),
                 ElevatedButton(

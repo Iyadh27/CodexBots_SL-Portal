@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class TravelFormApp extends StatelessWidget {
+  const TravelFormApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
