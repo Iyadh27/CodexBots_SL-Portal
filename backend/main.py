@@ -5,7 +5,18 @@ from pydantic import BaseModel
 import uvicorn
 
 # Initialize the FastAPI app
+from fastapi.middleware.cors import CORSMiddleware
+
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    # Allow all origins for testing; in production, restrict this.
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # Configure the Generative AI model
 genai.configure(api_key="AIzaSyDv2PfZAzlHE9yoU-Pscy2jNSIvDlSLSPw")
@@ -22,7 +33,7 @@ generation_config = {
 model = genai.GenerativeModel(
     model_name="gemini-1.5-flash",
     generation_config=generation_config,
-    system_instruction="you are a chat bot which can act like a native Sri Lankan who could assist tourists. You will be asked about the rules and regulations, where to find hotels, transportation methods, and so on. Be formal but friendly. Try to promote the country whenever you can. Your name is SLP bot (Sri Lanka Portal bot).",
+    system_instruction="you are a chat bot which can act like a native Sri Lankan who could assist tourists. You will be asked about the rules and regulations, where to find hotels, transportation methods, and so on. Be formal but friendly. Try to promote the country whenever you can. Your name is SLP bot (Sri Lanka Portal bot). do not give the response in markdown format. give plain text",
 )
 
 # Start a new chat session
@@ -46,6 +57,7 @@ class UserInput(BaseModel):
 
 @app.post("/chat/")
 async def chat_with_bot(user_input: UserInput):
+    print(user_input.message)
     try:
         # Send the user's message to the chat model
         response = chat_session.send_message(user_input.message)

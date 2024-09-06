@@ -14,19 +14,22 @@ class _ChatBotScreenState extends State<ChatBotScreen> {
 
   // Fetch request to send the message to the backend
   Future<void> sendMessage(String message) async {
-    final url =
-        Uri.parse('http://127.0.0.1/chat'); // Replace with your backend URL
+    print("esponse.body");
+    print(message);
+    final url = Uri.parse(
+        'http://127.0.0.1:8000/chat/'); // Replace with your backend URL
     try {
       final response = await http.post(
         url,
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({'message': message}),
       );
+      print(response.body);
 
       if (response.statusCode == 200) {
         final botResponse = jsonDecode(response.body);
         setState(() {
-          messages.add({'sender': 'bot', 'text': botResponse['reply']});
+          messages.add({'sender': 'bot', 'text': botResponse['response']});
         });
       } else {
         setState(() {
@@ -44,6 +47,7 @@ class _ChatBotScreenState extends State<ChatBotScreen> {
 
   // Function to handle sending a message
   void _handleSend() {
+    print("esponse.body");
     final text = _controller.text.trim();
     if (text.isNotEmpty) {
       setState(() {
