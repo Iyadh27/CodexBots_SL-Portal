@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
+import 'package:sl_portal/main.dart';
 import 'package:sl_portal/user_controller.dart';
 import 'package:sl_portal/visa.dart';
 import 'app_form.dart'; // Import the AppForm screen
@@ -73,9 +74,14 @@ class _LoginCardState extends State<LoginCard> {
       userController.setUid(uid);
 
       // Navigate to AppForm on successful login
-      Navigator.push(
+      // Navigator.push(
+      //   context,
+      //   MaterialPageRoute(builder: (context) => const TabBarApp()),
+      // );
+
+       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => const TabBarApp()),
+        MaterialPageRoute(builder: (context) => const  MyHomePage(title: 'Flutter Demo Home Page')),
       );
     } catch (e) {
       // Handle error and show error message
@@ -126,12 +132,10 @@ class _LoginCardState extends State<LoginCard> {
                 obscureText: true,
               ),
               const SizedBox(height: 20),
-              _isLoading
-                  ? const CircularProgressIndicator() // Show loading indicator
-                  : ElevatedButton(
-                      onPressed: _login,
-                      child: const Text('Login'),
-                    ),
+              ElevatedButton(
+                 onPressed: _login,
+                child: const Text('Login'),
+              ),
             ],
           ),
         ),
@@ -172,12 +176,20 @@ class _SignupCardState extends State<SignupCard> {
       userController.setUid(uid);
 
       // After successful signup, navigate to the AppForm screen
-      Navigator.pushAndRemoveUntil(
+      // Navigator.pushAndRemoveUntil(
+      //   context,
+      //   MaterialPageRoute(builder: (context) => const TabBarApp()),
+      //   (Route<dynamic> route) => false, // Prevent navigating back to the signup screen
+      // );
+
+
+       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => const TabBarApp()),
-        (Route<dynamic> route) => false, // Prevent navigating back to the signup screen
+        MaterialPageRoute(builder: (context) => const MyHomePage(title: 'Flutter Demo Home Page')),
       );
-    } catch (e) {
+    } catch (e)
+    
+     {
       // Handle error and show error message
       String errorMessage = 'An error occurred. Please try again.';
       if (e is FirebaseAuthException) {

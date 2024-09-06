@@ -64,7 +64,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '823455017594',
     projectId: 'slportal-20697',
     storageBucket: 'slportal-20697.appspot.com',
-    iosBundleId: 'com.example.slPortal',
+    iosBundleId: 'com.slportal.app',
   );
 
   static FirebaseOptions macos = FirebaseOptions(
@@ -73,7 +73,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '823455017594',
     projectId: 'slportal-20697',
     storageBucket: 'slportal-20697.appspot.com',
-    iosBundleId: 'com.example.slPortal',
+    iosBundleId: 'com.slportal.app',
   );
 
   static FirebaseOptions windows = FirebaseOptions(
