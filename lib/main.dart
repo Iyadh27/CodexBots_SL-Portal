@@ -76,8 +76,7 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-
-   @override
+  @override
   void initState() {
     super.initState();
     // Navigate to the Signup screen automatically when the page loads
