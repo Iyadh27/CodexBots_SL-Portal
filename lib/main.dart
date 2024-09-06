@@ -74,6 +74,47 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   final TextEditingController _searchController = TextEditingController();
+  Widget buildCarouselSection2(List<String> items) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        CarouselSlider(
+          options: CarouselOptions(
+              height: 150.0,
+              viewportFraction: 0.5,
+              enableInfiniteScroll: false,
+              enlargeCenterPage: false,
+              padEnds: false),
+          items: items.map((i) {
+            return Builder(
+              builder: (BuildContext context) {
+                return Container(
+                    width: MediaQuery.of(context).size.width / 2.5,
+                    margin: EdgeInsets.all(8.0),
+                    decoration: BoxDecoration(
+                      color: const Color.fromARGB(255, 236, 236, 236),
+                      borderRadius: BorderRadius.circular(10),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.2),
+                          spreadRadius: 2,
+                          blurRadius: 7,
+                          offset: Offset(0, 3), // changes position of shadow
+                        ),
+                      ],
+                    ),
+                    child: Text(
+                      ' $i',
+                      style: TextStyle(fontSize: 16.0),
+                    ));
+              },
+            );
+          }).toList(),
+        )
+      ],
+    );
+  }
+
   Widget buildCarouselSection(String title, List<String> items) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -114,10 +155,19 @@ class _MyHomePageState extends State<MyHomePage> {
               builder: (BuildContext context) {
                 return Container(
                     width: MediaQuery.of(context).size.width / 2.5,
-                    margin: EdgeInsets.symmetric(horizontal: 5.0),
+                    margin: EdgeInsets.all(8.0),
                     decoration: BoxDecoration(
-                        color: Colors.amber,
-                        borderRadius: BorderRadius.circular(10)),
+                      color: const Color.fromARGB(255, 236, 236, 236),
+                      borderRadius: BorderRadius.circular(10),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.2),
+                          spreadRadius: 2,
+                          blurRadius: 7,
+                          offset: Offset(0, 3), // changes position of shadow
+                        ),
+                      ],
+                    ),
                     child: Text(
                       ' $i',
                       style: TextStyle(fontSize: 16.0),
@@ -134,23 +184,53 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: TextField(
-              controller: _searchController,
-              decoration: InputDecoration(
-                hintText: 'Search...',
-                prefixIcon: Icon(Icons.search),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                width: MediaQuery.of(context).size.width / 2,
+                margin: EdgeInsets.only(top: 16.0, bottom: 16.0),
+                padding: EdgeInsets.only(top: 16.0, bottom: 16.0, left: 28.0),
+                decoration: BoxDecoration(
+                  color: Theme.of(context)
+                      .primaryColor, // Primary color as background
+                  borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(20.0), // Rounded top-right corner
+                    bottomRight:
+                        Radius.circular(20.0), // Rounded bottom-right corner
+                  ),
+                ),
+                child: Text(
+                  "Welcome Gina",
+
+                  style: TextStyle(
+                    color: Colors.white, // Text color for contrast
+                    fontSize: 18,
+                  ),
+                  textAlign: TextAlign.left, // Left aligned text
                 ),
               ),
-            ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextField(
+                  controller: _searchController,
+                  decoration: InputDecoration(
+                    hintText: 'Search...',
+                    prefixIcon: Icon(Icons.search),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
           Expanded(
             child: ListView(
               children: [
+                Container(child: buildCarouselSection2(featuredCars)),
                 buildCarouselSection('Popular Destinations', featuredCars),
                 buildCarouselSection('To Do Activites', newArrivals),
                 buildCarouselSection('Saved Places', bestSellers),
