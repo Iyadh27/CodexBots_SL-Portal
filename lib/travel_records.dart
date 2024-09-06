@@ -300,11 +300,6 @@ class _TravelHistoryFormState extends State<TravelHistoryForm> {
                         itemCount: _travelHistory.length,
                         itemBuilder: (context, index) {
                           final record = _travelHistory[index];
-                          // return ListTile(
-                          //   title: Text(
-                          //       '${record['Country']} (${record['Period']} days)'),
-                          //   subtitle: Text(record['Description']!),
-                          // );
                           return Card(
                             elevation: 5, // Adds shadow and depth
                             margin: const EdgeInsets.symmetric(

@@ -14,7 +14,7 @@ class _TabBarState extends State<TabBarApp> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      initialIndex: 1,
+      initialIndex: 0,
       length: 3,
       child: Scaffold(
         appBar: AppBar(
@@ -33,9 +33,9 @@ class _TabBarState extends State<TabBarApp> {
             ],
           ),
         ),
-        body: const TabBarView(
+        body: TabBarView(
           children: <Widget>[
-            Column(
+            const Column(
               children: [
                 Expanded(
                   child: MultiPartForm(),
@@ -44,9 +44,18 @@ class _TabBarState extends State<TabBarApp> {
               ],
             ),
             Center(
-              child: Text("It's rainy here"),
+              child: ElevatedButton(
+                onPressed: () {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Processing Application')),
+                  );
+                },
+                child: const Text("Show SnackBar"),
+              ),
             ),
-            Center(
+              
+            
+            const Center(
               child: Text("It's sunny here"),
             ),
           ],

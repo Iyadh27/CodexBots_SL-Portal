@@ -19,7 +19,7 @@ class FinanceVisa extends StatelessWidget {
             const FinanceFormApp(),
             ElevatedButton(
               onPressed: onComplete,
-              child: const Text('Next'),
+              child: const Text('Complete Application'),
             ),
             const SizedBox(
                 height:

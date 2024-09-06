@@ -43,6 +43,20 @@ class _FinanceFormState extends State<FinanceForm> {
     );
   }
 
+  // Form submission handler
+  void _submitForm() {
+    if (_formKey.currentState!.validate()) {
+      // Proceed with form submission (e.g., send data, go to the next page, etc.)
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Form submitted successfully!')),
+      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Please fill all required fields')),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -113,9 +127,7 @@ class _FinanceFormState extends State<FinanceForm> {
                 return null;
               },
             ),
-            const SizedBox(height: 16),
-
-            const SizedBox(height: 16),
+            const SizedBox(height: 20),
 
             // Sponsorship Details (if applicable)
             TextFormField(
@@ -123,7 +135,15 @@ class _FinanceFormState extends State<FinanceForm> {
               decoration: const InputDecoration(
                   labelText: 'Sponsorship Details (if applicable)'),
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: 20),
+            Center(
+              child: ElevatedButton(
+                onPressed: _submitForm,
+                child: const Text('Submit Finance Information'),
+              ),
+            ),
+
+            const SizedBox(height: 20),
           ],
         ),
       ),

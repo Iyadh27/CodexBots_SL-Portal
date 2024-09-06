@@ -11,6 +11,7 @@ class TravelFormApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
+      debugShowCheckedModeBanner: false,
       home: const TravelForm(),
     );
   }
@@ -50,10 +51,24 @@ class _TravelFormState extends State<TravelForm> {
     }
   }
 
+  // Form submission handler
+  void _submitForm() {
+    if (_formKey.currentState!.validate()) {
+      // Proceed with form submission (e.g., send data, go to the next page, etc.)
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Form submitted successfully!')),
+      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Please fill all required fields')),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return DefaultTextStyle(
-        style: TextStyle(fontSize: 16.0, color: Colors.black),
+        style: const TextStyle(fontSize: 16.0, color: Colors.black),
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(30.0),
           child: Form(
@@ -123,15 +138,8 @@ class _TravelFormState extends State<TravelForm> {
                 ),
                 const SizedBox(height: 25),
 
-                // Previous Travel History
-                // TextFormField(
-                //   controller: _historyController,
-                //   decoration:
-                //       const InputDecoration(labelText: 'Previous Travel History'),
-                //   maxLines: 3,
-                // ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
+                const Padding(
+                  padding: EdgeInsets.all(8.0),
                   child: Text(
                     'Previous Travel History',
                     style: TextStyle(
@@ -143,6 +151,14 @@ class _TravelFormState extends State<TravelForm> {
 
                 const SizedBox(height: 25),
                 TravelHistoryRecords(),
+                Center(
+                  child: ElevatedButton(
+                    onPressed: _submitForm,
+                    child: const Text('Submit Travel Information'),
+                  ),
+                ),
+
+                const SizedBox(height: 20),
               ],
             ),
           ),

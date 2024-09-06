@@ -42,7 +42,19 @@ class _AppFormState extends State<AppForm> {
   // Form key to validate form fields
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  
+  // Form submission handler
+  void _submitForm() {
+    if (_formKey.currentState!.validate()) {
+      // Proceed with form submission (e.g., send data, go to the next page, etc.)
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Form submitted successfully!')),
+      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Please fill all required fields')),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -207,6 +219,12 @@ class _AppFormState extends State<AppForm> {
               },
             ),
             const SizedBox(height: 20),
+            Center(child: ElevatedButton(
+              onPressed: _submitForm,
+              child: const Text('Submit Personal Information'),
+            ),),
+            
+           const SizedBox(height: 20),
           ],
         ),
       ),

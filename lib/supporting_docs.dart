@@ -56,14 +56,15 @@ class _SupportingDocsState extends State<SupportingDocs> {
                 ],
               ),
               const SizedBox(height: 20),
-              ElevatedButton(
+              Center(
+                  child: ElevatedButton(
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
                     widget.onComplete(); // Navigate to the next step
                   }
                 },
                 child: const Text('Next'),
-              ),
+              )),
               const SizedBox(height: 20),
             ],
           ),
