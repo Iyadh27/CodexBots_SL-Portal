@@ -2,9 +2,9 @@
 import 'package:flutter/material.dart';
 import 'app_form.dart'; // Import the AppForm screen
 
-void main() {
-  runApp(const SignupScreen());
-}
+// void main() {
+//   runApp(const SignupScreen());
+// }
 
 class SignupScreen extends StatelessWidget {
   const SignupScreen({super.key});

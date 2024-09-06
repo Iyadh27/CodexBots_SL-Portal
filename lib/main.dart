@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sl_portal/singup.dart';
 import 'pages/discover.dart';
 import 'pages/profile.dart';
 import 'pages/saved.dart';
@@ -21,7 +22,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Color(0x007A8F)),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: SignupScreen(),
     );
   }
 }
