@@ -4,7 +4,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:sl_portal/user_controller.dart';
 import 'package:sl_portal/visa.dart';
-// import 'package:sl_portal/application_list_page.dart';
 import 'app_form.dart'; // Import the AppForm screen
 
 void main() async {
@@ -16,12 +15,6 @@ void main() async {
 class SignupScreen extends StatelessWidget {
   const SignupScreen({super.key});
 
-  void _navigateToAppForm(BuildContext context) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => const TabBarApp()),
-    );
-  }
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -53,13 +46,6 @@ class SignupScreen extends StatelessWidget {
 class LoginCard extends StatefulWidget {
   const LoginCard({super.key});
 
-
-  void _navigateToAppForm(BuildContext context) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => const TabBarApp()),
-    );
-  }
   @override
   _LoginCardState createState() => _LoginCardState();
 }
@@ -67,17 +53,14 @@ class LoginCard extends StatefulWidget {
 class _LoginCardState extends State<LoginCard> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  bool _isLoading = false; // Loading state
 
   // Function to handle login
   Future<void> _login() async {
+    setState(() {
+      _isLoading = true; // Show loading indicator
+    });
     try {
-
-//       if (_emailController.text== 'admin'){
-//         Navigator.push(
-//   context,
-//   MaterialPageRoute(builder: (context) => const ApplicationsListPage()),
-// );
-//       }
       UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: _emailController.text,
         password: _passwordController.text,
@@ -85,17 +68,40 @@ class _LoginCardState extends State<LoginCard> {
 
       String uid = userCredential.user!.uid;
 
-    // Access the UserController and set the uid
-    final userController = Get.find<UserController>();
-    userController.setUid(uid);
+      // Access the UserController and set the uid
+      final userController = Get.find<UserController>();
+      userController.setUid(uid);
+
       // Navigate to AppForm on successful login
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => const TabBarApp()),
       );
     } catch (e) {
-      // Handle error (e.g., display error message)
-      print('Error: $e');
+      // Handle error and show error message
+      String errorMessage = 'An error occurred. Please try again.';
+      if (e is FirebaseAuthException) {
+        switch (e.code) {
+          case 'user-not-found':
+            errorMessage = 'No user found for that email.';
+            break;
+          case 'wrong-password':
+            errorMessage = 'Wrong password provided for that user.';
+            break;
+          case 'invalid-email':
+            errorMessage = 'The email address is invalid.';
+            break;
+          default:
+            errorMessage = e.message ?? errorMessage;
+        }
+      }
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(errorMessage)),
+      );
+    } finally {
+      setState(() {
+        _isLoading = false; // Hide loading indicator
+      });
     }
   }
 
@@ -120,10 +126,12 @@ class _LoginCardState extends State<LoginCard> {
                 obscureText: true,
               ),
               const SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: _login,
-                child: const Text('Login'),
-              ),
+              _isLoading
+                  ? const CircularProgressIndicator() // Show loading indicator
+                  : ElevatedButton(
+                      onPressed: _login,
+                      child: const Text('Login'),
+                    ),
             ],
           ),
         ),
@@ -150,7 +158,7 @@ class _SignupCardState extends State<SignupCard> {
     setState(() {
       _isLoading = true; // Show loading indicator
     });
-    
+
     try {
       UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: _emailController.text,
@@ -159,9 +167,10 @@ class _SignupCardState extends State<SignupCard> {
 
       String uid = userCredential.user!.uid;
 
-    // Access the UserController and set the uid
-    final userController = Get.find<UserController>();
-    userController.setUid(uid);
+      // Access the UserController and set the uid
+      final userController = Get.find<UserController>();
+      userController.setUid(uid);
+
       // After successful signup, navigate to the AppForm screen
       Navigator.pushAndRemoveUntil(
         context,
@@ -169,7 +178,26 @@ class _SignupCardState extends State<SignupCard> {
         (Route<dynamic> route) => false, // Prevent navigating back to the signup screen
       );
     } catch (e) {
-      print('Error: $e');
+      // Handle error and show error message
+      String errorMessage = 'An error occurred. Please try again.';
+      if (e is FirebaseAuthException) {
+        switch (e.code) {
+          case 'weak-password':
+            errorMessage = 'The password provided is too weak.';
+            break;
+          case 'email-already-in-use':
+            errorMessage = 'The account already exists for that email.';
+            break;
+          case 'invalid-email':
+            errorMessage = 'The email address is invalid.';
+            break;
+          default:
+            errorMessage = e.message ?? errorMessage;
+        }
+      }
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(errorMessage)),
+      );
     } finally {
       setState(() {
         _isLoading = false; // Hide loading indicator
