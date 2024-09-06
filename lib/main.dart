@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sl_portal/singup.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:sl_portal/visa.dart';
 import 'firebase_options.dart';
 import 'package:get/get.dart';
 import 'user_controller.dart';
@@ -136,7 +137,19 @@ class _MyHomePageState extends State<MyHomePage> {
           items: items.map((i) {
             return Builder(
               builder: (BuildContext context) {
-                return Container(
+               return GestureDetector(
+                onTap: () {
+                  if (i[0] == 'Visa') {
+                    // Define what should happen when "Now visa processing at your fingertips" is tapped
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => TabBarApp()),
+                    );
+                  } else {
+                    print("${i[0]} tapped");
+                  }
+                },
+                child:Container(
                   width: MediaQuery.of(context).size.width / 2.5,
                   margin: EdgeInsets.all(8.0),
                   child: Stack(
@@ -200,7 +213,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                     ],
                   ),
-                );
+                ));
               },
             );
           }).toList(),
