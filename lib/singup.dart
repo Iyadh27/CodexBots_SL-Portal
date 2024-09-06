@@ -13,6 +13,7 @@ class SignupScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      
       home: DefaultTabController(
         length: 2,
         child: Scaffold(
@@ -25,11 +26,27 @@ class SignupScreen extends StatelessWidget {
               ],
             ),
           ),
-          body: const TabBarView(
+          body: Container(
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/login view.png'),
+                fit: BoxFit.cover,
+              ),
+            ),
+            
+            child: const Column(
             children: [
-              LoginCard(),
-              SignupCard(),
+              Spacer(),
+              Expanded(
+                child: TabBarView(
+                  children: [
+                    LoginCard(),
+                    SignupCard(),
+                  ],
+                ),
+              ),
             ],
+          ),
           ),
         ),
       ),
