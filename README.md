@@ -130,6 +130,6 @@ To ensure the best user experience, we are rolling out features in stages. This 
 
 ## **Contact Us**
 
-Got questions or need support? Reach out to us at [your-email@example.com](mailto:iyadh.21@cse.mrt.ac.lk). Let’s make exploring Sri Lanka an unforgettable experience!
+Got questions or need support? Reach out to us at (mailto:iyadh.21@cse.mrt.ac.lk). Let’s make exploring Sri Lanka an unforgettable experience!
 
 ---
