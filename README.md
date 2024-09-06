@@ -101,6 +101,11 @@ Get started with SL Portal in just a few steps:
    ```bash
    flutter run
    ```
+5. Run the app:
+
+   ```bash
+   uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+   ```
 
 ---
 
