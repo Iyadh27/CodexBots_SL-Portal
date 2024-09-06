@@ -318,7 +318,7 @@ class _AppFormState extends State<AppForm> {
                 // Submit button
                 ElevatedButton(
                   onPressed: _saveToFirestore,
-                  child: const Text('Submit'),
+                  child: const Text('save'),
                 ),
               ],
             ),
