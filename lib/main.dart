@@ -1,8 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:sl_portal/singup.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
+import 'package:get/get.dart';
+import 'user_controller.dart';
+void main()  async {
 
-void main() {
-  runApp(const MyApp());
+await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );// Initialize Firebase 
+
+    Get.put(UserController()); // Initializes the UserController globally
+
+runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {

@@ -1,4 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:sl_portal/user_controller.dart'; // Import your UserController
 
 class TravelFormApp extends StatelessWidget {
   const TravelFormApp({super.key});
@@ -33,6 +36,9 @@ class _TravelFormState extends State<TravelForm> {
   final _itineraryController = TextEditingController();
   final _historyController = TextEditingController();
 
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+final UserController _userController = Get.find<UserController>();
+
   // Date pickers for date fields
   Future<void> _selectDate(
       BuildContext context, TextEditingController controller) async {
@@ -47,6 +53,86 @@ class _TravelFormState extends State<TravelForm> {
         controller.text = "${picked.toLocal()}".split(' ')[0];
       });
     }
+  }
+
+  Future<void> _fetchFromFirestore() async {
+    try {
+      // Get the user ID from UserController
+      String userId = _userController.getUserId(); // Replace this with actual user ID fetching logic
+
+      // Query to get the document with the specified user ID
+      QuerySnapshot querySnapshot = await _firestore
+          .collection('travelForms')
+          .where('userId', isEqualTo: userId)
+          .get();
+
+      if (querySnapshot.docs.isNotEmpty) {
+        // Document exists, populate the form fields with the existing data
+        final document = querySnapshot.docs.first.data() as Map<String, dynamic>;
+
+        setState(() {
+          _purposeController.text = document['purpose'] ?? '';
+          _dateController.text = document['date'] ?? '';
+          _durationController.text = document['duration'] ?? '';
+          _accommodationController.text = document['accommodation'] ?? '';
+          _itineraryController.text = document['itinerary'] ?? '';
+          _historyController.text = document['history'] ?? '';
+        });
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Failed to fetch data: $e')),
+      );
+    }
+  }
+Future<void> _saveToFirestore() async {
+  final String userId = _userController.getUserId();
+
+  // Collect data from form fields
+  final Map<String, dynamic> formData = {
+    'purpose': _purposeController.text,
+    'date': _dateController.text,
+    'duration': _durationController.text,
+    'accommodation': _accommodationController.text,
+    'itinerary': _itineraryController.text,
+    'history': _historyController.text,
+    'userId': userId,
+  };
+
+  try {
+    // Check if a document with the given userId already exists
+    final QuerySnapshot querySnapshot = await _firestore
+        .collection('travelForms')
+        .where('userId', isEqualTo: userId)
+        .get();
+
+    if (querySnapshot.docs.isNotEmpty) {
+      // Document exists, update it
+      final documentId = querySnapshot.docs.first.id;
+      await _firestore.collection('travelForms').doc(documentId).update(formData);
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Travel form updated successfully!')),
+      );
+    } else {
+      // Document does not exist, create a new one
+      await _firestore.collection('travelForms').add(formData);
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Travel form submitted successfully!')),
+      );
+    }
+  } catch (e) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Failed to submit form: $e')),
+    );
+  }
+}
+
+
+  @override
+  void initState() {
+    super.initState();
+    // Fetch data when the widget is first built
+    _fetchFromFirestore();
   }
 
   @override
@@ -127,6 +213,15 @@ class _TravelFormState extends State<TravelForm> {
               maxLines: 3,
             ),
             const SizedBox(height: 25),
+
+            ElevatedButton(
+              onPressed: () {
+                if (_formKey.currentState!.validate()) {
+                  _saveToFirestore();
+                }
+              },
+              child: const Text('Submit'),
+            ),
           ],
         ),
       ),
