@@ -81,7 +81,7 @@ Get started with SL Portal in just a few steps:
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/your-repo/sl-portal.git
+   git clone https://github.com/Iyadh27/CodexBots_SL-Portal.git
    ```
 
 2. Navigate to the project directory:
@@ -125,6 +125,6 @@ To ensure the best user experience, we are rolling out features in stages. This 
 
 ## **Contact Us**
 
-Got questions or need support? Reach out to us at [your-email@example.com](mailto:your-email@example.com). Let’s make exploring Sri Lanka an unforgettable experience!
+Got questions or need support? Reach out to us at [your-email@example.com](mailto:iyadh.21@cse.mrt.ac.lk). Let’s make exploring Sri Lanka an unforgettable experience!
 
 ---
