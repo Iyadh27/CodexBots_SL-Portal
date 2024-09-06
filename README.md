@@ -1,4 +1,3 @@
-Here’s an enhanced version of your README file, designed to make it more engaging and appealing. It highlights the exciting aspects of SL Portal and emphasizes the unique value it brings to users and visa officers.
 
 ---
 
@@ -129,5 +128,3 @@ To ensure the best user experience, we are rolling out features in stages. This 
 Got questions or need support? Reach out to us at [your-email@example.com](mailto:your-email@example.com). Let’s make exploring Sri Lanka an unforgettable experience!
 
 ---
-
-This README provides a dynamic look into what SL Portal offers, creating excitement and a sense of continuous improvement. Feel free to add your UI snapshots and expand on any sections to make it even more captivating!
