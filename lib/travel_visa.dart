@@ -16,7 +16,7 @@ class TravelVisa extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            TravelFormApp(),
+            const TravelFormApp(),
             ElevatedButton(
               onPressed: onComplete,
               child: const Text('Next'),

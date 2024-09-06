@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sl_portal/travel_records.dart';
 
 class TravelFormApp extends StatelessWidget {
   const TravelFormApp({super.key});
@@ -51,86 +52,101 @@ class _TravelFormState extends State<TravelForm> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      padding: const EdgeInsets.all(30.0),
-      child: Form(
-        key: _formKey,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            TextFormField(
-              controller: _purposeController,
-              decoration: const InputDecoration(labelText: 'Purpose of Visit'),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter the purpose of your visit';
-                }
-                return null;
-              },
-            ),
-            const SizedBox(height: 25),
-
-            // Intended Date of Travel
-            TextFormField(
-              controller: _dateController,
-              decoration: InputDecoration(
-                labelText: 'Intended Date of Travel',
-                suffixIcon: IconButton(
-                  icon: const Icon(Icons.calendar_today),
-                  onPressed: () => _selectDate(context, _dateController),
+    return DefaultTextStyle(
+        style: TextStyle(fontSize: 16.0, color: Colors.black),
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(30.0),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                TextFormField(
+                  controller: _purposeController,
+                  decoration:
+                      const InputDecoration(labelText: 'Purpose of Visit'),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter the purpose of your visit';
+                    }
+                    return null;
+                  },
                 ),
-              ),
-              keyboardType: TextInputType.datetime,
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter the date of travel';
-                }
-                return null;
-              },
-            ),
-            const SizedBox(height: 25),
+                const SizedBox(height: 25),
 
-            // Duration of Stay
-            TextFormField(
-              controller: _durationController,
-              decoration: const InputDecoration(
-                  labelText: 'Duration of Stay (in days)'),
-              keyboardType: TextInputType.number,
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter the duration of your stay';
-                }
-                return null;
-              },
-            ),
-            const SizedBox(height: 25),
+                // Intended Date of Travel
+                TextFormField(
+                  controller: _dateController,
+                  decoration: InputDecoration(
+                    labelText: 'Intended Date of Travel',
+                    suffixIcon: IconButton(
+                      icon: const Icon(Icons.calendar_today),
+                      onPressed: () => _selectDate(context, _dateController),
+                    ),
+                  ),
+                  keyboardType: TextInputType.datetime,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter the date of travel';
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 25),
 
-            // Accommodation Details
-            TextFormField(
-              controller: _accommodationController,
-              decoration: const InputDecoration(
-                  labelText: 'Accommodation Details (Address of hotel)'),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter accommodation details';
-                }
-                return null;
-              },
-            ),
-            const SizedBox(height: 25),
+                // Duration of Stay
+                TextFormField(
+                  controller: _durationController,
+                  decoration: const InputDecoration(
+                      labelText: 'Duration of Stay (in days)'),
+                  keyboardType: TextInputType.number,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter the duration of your stay';
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 25),
 
-            // Previous Travel History
-            TextFormField(
-              controller: _historyController,
-              decoration:
-                  const InputDecoration(labelText: 'Previous Travel History'),
-              maxLines: 3,
+                // Accommodation Details
+                TextFormField(
+                  controller: _accommodationController,
+                  decoration: const InputDecoration(
+                      labelText: 'Accommodation Details (Address of hotel)'),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter accommodation details';
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 25),
+
+                // Previous Travel History
+                // TextFormField(
+                //   controller: _historyController,
+                //   decoration:
+                //       const InputDecoration(labelText: 'Previous Travel History'),
+                //   maxLines: 3,
+                // ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    'Previous Travel History',
+                    style: TextStyle(
+                      fontSize: 16.0,
+                    ),
+                    softWrap: true,
+                  ),
+                ),
+
+                const SizedBox(height: 25),
+                TravelHistoryRecords(),
+              ],
             ),
-            const SizedBox(height: 25),
-          ],
-        ),
-      ),
-    );
+          ),
+        ));
   }
 
   @override
