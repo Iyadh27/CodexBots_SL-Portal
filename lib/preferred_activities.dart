@@ -80,10 +80,9 @@ class _PreferredActivitiesState extends State<PreferredActivities> {
                     return Container(
                       decoration: BoxDecoration(
                         color: activity['isChecked']
-                            ? Theme.of(context)
-                                .colorScheme
-                                .primary // Prime color when checked
-                            : const Color.fromARGB(255, 223, 216, 216),
+                            ? const Color.fromARGB(
+                                255, 160, 205, 212) // Prime color when checked
+                            : const Color.fromARGB(255, 211, 220, 221),
                         borderRadius:
                             BorderRadius.circular(25), // Radius of the corners
                       ), // Gray color when not checked
