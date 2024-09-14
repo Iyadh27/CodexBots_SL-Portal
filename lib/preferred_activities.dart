@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sl_portal/bucket_list.dart';
+import 'package:sl_portal/search_bar.dart';
 
 class PreferredActivities extends StatefulWidget {
   const PreferredActivities({super.key});
@@ -38,12 +39,13 @@ class _PreferredActivitiesState extends State<PreferredActivities> {
   List<String> selectedActivities = [];
 
   // Function to update selected activities list
-  void _updateSelectedActivities(String activity, bool isSelected) {
+  void _updateSelectedActivities(
+      Map<String, dynamic> activity, bool isSelected) {
     setState(() {
       if (isSelected) {
-        selectedActivities.add(activity);
+        selectedActivities.add(activity['name']);
       } else {
-        selectedActivities.remove(activity);
+        selectedActivities.remove(activity['name']);
       }
       // Print the selected activities list to the console
       print('Selected Activities: $selectedActivities');
@@ -66,6 +68,9 @@ class _PreferredActivitiesState extends State<PreferredActivities> {
         padding: const EdgeInsets.all(10.0),
         child: Column(
           children: [
+            SearchBarComponent(
+                activities: activities,
+                onActivitySelected: _updateSelectedActivities),
             Expanded(
               child: GridView.builder(
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -102,8 +107,7 @@ class _PreferredActivitiesState extends State<PreferredActivities> {
                           } else {
                             setState(() {
                               activity['isChecked'] = value!;
-                              _updateSelectedActivities(
-                                  activity['name'], value);
+                              _updateSelectedActivities(activity, value);
                             });
                           }
                         },

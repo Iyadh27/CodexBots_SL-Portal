@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sl_portal/itenerary.dart';
+import 'package:sl_portal/search_bar.dart';
 
 class BucketList extends StatefulWidget {
   const BucketList({super.key});
@@ -37,12 +38,12 @@ class _BucketListState extends State<BucketList> {
   List<String> selectedPlaces = [];
 
   // Function to update selected Places_updateSelectedPlaces list
-  void _updateSelectedPlaces(String activity, bool isSelected) {
+  void _updateSelectedPlaces(Map<String, dynamic> activity, bool isSelected) {
     setState(() {
       if (isSelected) {
-        selectedPlaces.add(activity);
+        selectedPlaces.add(activity['name']);
       } else {
-        selectedPlaces.remove(activity);
+        selectedPlaces.remove(activity['name']);
       }
       // Print the selected Places_updateSelectedPlaces list to the console
       print('Selected Places_updateSelectedPlaces: $selectedPlaces');
@@ -65,6 +66,8 @@ class _BucketListState extends State<BucketList> {
         padding: const EdgeInsets.all(10.0),
         child: Column(
           children: [
+            SearchBarComponent(
+                activities: places, onActivitySelected: _updateSelectedPlaces),
             Expanded(
               child: GridView.builder(
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -101,7 +104,7 @@ class _BucketListState extends State<BucketList> {
                           } else {
                             setState(() {
                               activity['isChecked'] = value!;
-                              _updateSelectedPlaces(activity['name'], value);
+                              _updateSelectedPlaces(activity, value);
                             });
                           }
                         },
