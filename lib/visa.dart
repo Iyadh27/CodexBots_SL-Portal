@@ -62,16 +62,7 @@ class _TabBarState extends State<TabBarApp> {
                 ),
               ],
             ),
-            // Center(
-            //   child: ElevatedButton(
-            //     onPressed: () {
-            //       ScaffoldMessenger.of(context).showSnackBar(
-            //         const SnackBar(content: Text('Processing Application')),
-            //       );
-            //     },
-            //     child: const Text("Show SnackBar"),
-            //   ),
-            // ),
+            
             Center(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
