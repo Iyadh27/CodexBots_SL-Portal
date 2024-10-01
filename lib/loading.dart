@@ -128,7 +128,6 @@ class _LoadingScreenState extends State<LoadingScreen>
                         opacity: _opacityAnimation.value,
                         child: ImageCarousel()
                       ),),
-                      // const ImageCarousel(),
                     ],
                   );
                 }
