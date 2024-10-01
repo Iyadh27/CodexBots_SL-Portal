@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:sl_portal/loading.dart';
-import 'package:sl_portal/preferred_activities.dart';
 import 'package:sl_portal/singup.dart';
 
 void main() {
@@ -20,8 +18,8 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       debugShowCheckedModeBanner: false,
-      // home: const MyHomePage(title: 'Flutter Demo Home Page'),
-      home: const LoadingScreen(),
+      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      // home: const LoadingScreen(),
       // home: const PreferredActivities(),
     );
   }

@@ -67,7 +67,7 @@ class _TabBarState extends State<TabBarApp> {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text(
+                  const Text(
                     "Application Progress",
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
@@ -76,19 +76,19 @@ class _TabBarState extends State<TabBarApp> {
                     value: _applicationProgress,
                     minHeight: 8.0,
                     backgroundColor: Colors.grey[300],
-                    valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
+                    valueColor: const AlwaysStoppedAnimation<Color>(Colors.blue),
                   ),
                   const SizedBox(height: 16),
                   Text(
                     "${(_applicationProgress * 100).toInt()}% complete",
-                    style: TextStyle(fontSize: 16),
+                    style: const TextStyle(fontSize: 16),
                   ),
                   const SizedBox(height: 8),
                   Text(
                     _applicationProgress == 1.0
                         ? "Your application has been approved!"
                         : "Your application is under review...",
-                    style: TextStyle(fontSize: 16, color: Colors.grey),
+                    style: const TextStyle(fontSize: 16, color: Colors.grey),
                   ),
                 ],
               ),

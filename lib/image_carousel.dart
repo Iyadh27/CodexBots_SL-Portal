@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:sl_portal/singup.dart';
 
 class ImageCarousel extends StatefulWidget {
+  const ImageCarousel({super.key});
+
   @override
   _ImageCarouselState createState() => _ImageCarouselState();
 }

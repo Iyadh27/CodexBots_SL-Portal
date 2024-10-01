@@ -150,7 +150,7 @@ class _TravelFormState extends State<TravelForm> {
                 ),
 
                 const SizedBox(height: 25),
-                TravelHistoryRecords(),
+                const TravelHistoryRecords(),
                 Center(
                   child: ElevatedButton(
                     onPressed: _submitForm,
